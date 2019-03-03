@@ -1,0 +1,101 @@
+
+/*slidebarエリア(後ほど別ファイルへ移動)*/
+#slidecontents{
+}
+#slidecont_header{
+	width:200px;
+	height:130px;
+	margin:0 auto;
+	margin-top:30px;
+	margin-bottom:30px;
+}
+.slidecont_head_icon:nth-of-type(1){
+	position:absolute;
+	top:40px;
+	left:60px;
+	border:solid 1px white;
+	width:50px;
+	height:50px;
+	background-color:gray;
+	border-radius: 50%;
+	margin-top:10px;
+}
+.slidecont_head_icon:nth-of-type(1) i{
+	margin-top:17px;
+	margin-left:14px;
+}
+.slidecont_head_icon:nth-of-type(2){
+	position:absolute;
+	top:40px;
+	right:60px;
+	border:solid 1px white;
+	width:50px;
+	height:50px;
+	background-color:gray;
+	border-radius: 50%;
+	margin-top:10px;
+}
+.slidecont_head_icon:nth-of-type(2) i{
+	margin-top:17px;
+	margin-left:14px;
+}
+#slidecont_head_subtitle{
+	position:absolute;
+	top:115px;
+	left:45px;
+	display: flex;
+	font-size:0.9em;
+}
+#slidecont_head_subtitle li:nth-of-type(1) {
+	margin-right:23px;
+} 
+#slidecont_head_subtitle li a{
+	color:white;
+}
+#slidecont_main ul li a{
+	color:white;
+}
+#slidecont_main ul{/*slidecont_mainエリア*/
+	width:200px;
+	clear:both;
+	border-top:solid 1px white;
+	border-bottom:solid 1px white;
+	margin:0 auto;
+	font-size:1.3em;
+}
+#slidecont_main ul li{
+	padding:5px;
+	margin-bottom:20px;
+}
+#slidecont_main ul li:nth-of-type(1) {
+	margin-top:50px;
+}
+#slidecont_main ul li:nth-of-type(4) {
+	margin-bottom:50px;
+}
+/*アイコン*/
+.slidecont_icon:nth-of-type(1):before {/*トップのアイコン*/
+	font-family: "Font Awesome 5 Free";
+  	content: '\f015';
+  	font-weight: 900;
+  	margin-right:5px;
+}
+.slidecont_icon:nth-of-type(2):before {/*マイページのアイコン*/
+	font-family: "Font Awesome 5 Free";
+  	content: '\f007';
+  	font-weight: 900;
+  	margin-right:5px;
+}
+.slidecont_icon:nth-of-type(3):before {/*メッセージのアイコン*/
+	font-family: "Font Awesome 5 Free";
+  	content: '\f0e0';
+  	font-weight: 900;
+  	margin-right:5px;
+}
+.slidecont_icon:nth-of-type(4):before {/*メッセージのアイコン*/
+	font-family: "Font Awesome 5 Free";
+  	content: '\f2f5';
+  	font-weight: 900;
+  	margin-right:5px;
+}
+

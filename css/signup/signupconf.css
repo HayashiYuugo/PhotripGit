@@ -1,0 +1,65 @@
+@charset "UTF-8";
+*{
+	margin:0px;
+	padding:0px;
+}
+li{
+	list-style-type:none;
+	list-style-position:outside;
+}
+a{
+	text-decoration:none;
+}
+div{
+	box-sizing:border-box;
+}
+h1{
+	font-family: 'Quicksand', sans-serif;
+}
+h1 span{
+	color:#FACC2E;
+}
+#wrapper{
+	width:100%;
+	height:100vh;
+    overflow: hidden;
+    background-size:cover;
+    color:white;
+}
+#maincontents{
+	width:40%;
+	height:650px;
+	margin:0 auto;
+	background:rgba(0,0,0,0.5);
+	margin-top:80px;
+	margin-bottom:50px;
+	padding:10px;
+
+}
+#service_title{/*service_titleエリア*/
+	width:97%;
+	border-bottom:solid 1px white;
+	margin:0 auto;
+	margin-bottom:36px;
+	padding:10px;
+	text-align:center;
+}
+#maincontents dl{
+	font-size:1.3em;
+	margin-left:10px;
+}
+#maincontents dl dt{
+	margin-bottom:10px;
+}
+#maincontents dl dd {
+	margin-left:10px;
+}
+#imagepre{
+	border-radius:50%;
+	width:150px;
+	height:150px;
+}
+#imagepre img{
+	border-radius:50%;
+	border:solid 1px white;
+}

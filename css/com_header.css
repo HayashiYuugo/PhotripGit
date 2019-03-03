@@ -1,0 +1,82 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+li{
+	list-style-type:none;
+	list-style-position:outside;
+}
+a{
+	text-decoration:none;
+}
+div{
+	box-sizing: border-box;
+}
+/*headerエリア*/
+#header{
+	width:100%;
+	background-color:black;
+	display:flex;
+	border-bottom:solid 5px #FACC2E;
+}
+#header h1{
+	padding: 20px;
+    margin-left: 20px;
+    float: left;
+    font-family: 'Quicksand', sans-serif;
+	color: #FACC2E;
+	width:10%;
+	margin-right:863px;
+}
+#header h1 span{
+	color:white;
+}
+#header_nav{
+	width:23%;
+	height:8vh;
+	margin-top:15px;
+}
+#header_nav dl{
+	/* border:solid 1px red; */
+	display:flex;
+	justify-content: space-around;
+}
+/*iconとtextのdiv*/
+.Photo,
+.Notification,
+.Upload,
+.Menu{
+	width:20%;
+	height:10vh;
+	text-align:center;
+}
+/*icon*/
+.Photo dt,
+.Notification dt,
+.Upload dt,
+.Menu dt{
+	font-size:1.6em;
+	color:white;
+	/* width:100%; */
+	margin-bottom:5px;
+}
+/*iconHover*/
+.Photo dt :hover,
+.Notification dt :hover,
+.Upload dt :hover,
+.Menu dt :hover{
+	color:orange;
+}
+.Photo dt a{
+	color:white;
+}
+/*iconText*/
+.Photo dd,
+.Notification dd,
+.Upload dd,
+.Menu dd,
+.Photo dd{
+	font-size:0.7em;
+	color:white;
+}

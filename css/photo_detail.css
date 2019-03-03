@@ -1,0 +1,219 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+li{
+	list-style-type:none;
+	list-style-position:outside;
+}
+a{
+	text-decoration:none;
+}
+div{
+	box-sizing: border-box;
+}
+#wrapper{
+    width:100%;
+}
+/*profile_imageエリア*/
+#profile_image{
+    width:60px;
+	height:60px;
+    border-radius:50%;
+	position: fixed;
+    top:110px;
+    right:15px;
+}
+#maincontents{
+    width:100%;
+    margin-top:120px;
+}
+#photo_img{
+    margin:0 auto;
+    width:88.5%;
+}
+#share_list{
+    position: relative;
+    font-size:1.5em;
+    margin-bottom:150px;
+
+}
+#share_list ul{
+    display:flex;
+    position:absolute;
+    top:20px;
+    right:100px;
+
+}
+#share_list ul li:nth-of-type(1){
+    margin-right:35px;
+} 
+#count_comment{
+    position:absolute;
+    top:-5px;
+    right:43px;
+    font-size:1.2em;
+}
+#photo_profile{
+    margin:0 auto;
+    width:30%;
+}
+#photo_profile h3{
+    text-align:center;
+    margin-bottom:20px;
+}   
+#photo_profile img{
+    border-radius:50%;
+    width:70px;
+    height:70px;
+}
+#photo_profile p{
+    text-align:center;
+}
+#photo_profile p:after{
+    font-family: "Font Awesome 5 Free";
+    content: '\f007';
+    margin-left:5px;
+    font-size:1.2em;
+}
+#photo_location{
+    margin:0 auto;
+    width:30%;
+    margin-bottom:20px;
+}
+#photo_location p{
+    text-align:center;
+}
+#photo_location p:after{
+    font-family: "Font Awesome 5 Free";
+    content: '\f3c5';
+    font-weight:900;
+    margin-left:5px;
+    font-size:1.3em;
+}
+#photo_story{
+    margin:0 auto;
+    width:70%;
+    margin-bottom:100px;
+}
+#photo_story p{
+    text-align:center;
+}
+#subcontents{
+    width:70%;
+    margin:0 auto;
+    display:flex;
+    padding:10px;
+    position: relative;
+}
+#EXIF_area h3,#other_info h3,#belongscom_area h3,#comment_area h3{
+    font-size:1.3em;
+    margin-bottom:10px;
+}
+/*EXIFエリア*/
+#EXIF_area{
+    width:30%;
+    font-weight:bold;
+    font-size:0.9em;
+}
+#EXIF_icon:before{
+    font-family: "Font Awesome 5 Free";
+      content: '\f03e';
+      margin-right:5px;
+}
+/*other_info*/
+#other_info{
+    width:35%;
+    font-weight:bold;
+    font-size:0.9em;
+}
+#equipment_area{
+    
+}
+#equipment_area dt{
+    float:left;
+    margin-right:10px;
+}
+/*機材エリア*/
+#equipment_icon:before{
+    font-family: "Font Awesome 5 Free";
+    content: '\f083';
+    margin-right:5px;
+    font-weight: 900;
+}
+/*所属コミュニティエリア*/
+#belongscom_area{
+    /* background-color:yellow; */
+}
+#belongscom_area dt{
+    float:left;
+    margin-right:10px;
+}
+
+#belongscom_icon:before{
+    font-family: "Font Awesome 5 Free";
+    content: '\f0c0';
+    margin-right:5px;
+    font-weight: 900;
+}
+
+/*コメントエリア*/
+#commentarea{
+    width:35%;
+}
+#comment_area textarea{
+    margin-bottom:10px;
+}
+#comment_area button{
+    width:30%;
+    float:right;
+}
+#comment_icon:before{
+    font-family: "Font Awesome 5 Free";
+    content: '\f27a';
+    margin-right:5px;
+    color:black;
+}
+#commentcontents{
+    width:100%;
+    height:400px;
+    margin-top:70px;
+    overflow-y:scroll;
+}
+#comment_result{
+    margin-bottom:20px;
+    display:flex;
+    position: relative;
+    box-shadow: 5px 4px 74px -16px rgba(0,0,0,.40);
+}
+#comment_left {
+    width:20%;
+    overflow:hidden;
+    padding:5px;
+}
+#comment_left img{
+    border-radius:50%;
+    width:45px;
+    height:45px;
+}
+#comment_right {
+    width:100%;
+    margin-left:10px;
+}
+#comment_right span{
+    margin-bottom:10px;
+}
+#comment_date{
+    position:absolute;
+    top:5px;
+    right:5px;
+    font-size:0.8em;
+}
+#gmap{
+    position:absolute;
+    width:550px;
+    height:400px;
+    top:1660px;
+    left:230px;
+}
