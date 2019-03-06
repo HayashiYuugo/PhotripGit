@@ -102,7 +102,9 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	<div canvas="container"><!--containerエリアの開始-->
 		<div id="wrapper"><!--wrapperエリアの開始-->
 			<div id="header"><!--headerエリアの開始-->
+			<div id="header_title">
 				<h1><span>Phot</span>rip</h1>
+			</div>
 				<div id="header_nav"><!--header_navエリアの開始-->
 					<dl>
 						<div class="Photo">

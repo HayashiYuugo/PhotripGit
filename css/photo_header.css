@@ -16,18 +16,23 @@ div{
 /*headerエリア*/
 #header{
 	width:100%;
+	height:100px;
 	background-color:black;
 	display:flex;
 	border-bottom:solid 5px #FACC2E;
+	justify-content:space-between;
 }
-#header h1{
-	padding: 20px;
-    margin-left: 20px;
-    float: left;
-    font-family: 'Quicksand', sans-serif;
+#header_title{
+	padding: 10px;
+	margin-top:5px;
+  margin-left: 25px;
+  font-family: 'Quicksand', sans-serif;
 	color: #FACC2E;
 	width:10%;
-	margin-right:863px;
+	height:70px;
+}
+#header_title h1{
+	margin-top:3px;
 }
 #header h1 span{
 	color:white;
@@ -36,6 +41,7 @@ div{
 	width:23%;
 	height:8vh;
 	margin-top:15px;
+	margin-right:60px;
 }
 #header_nav dl{
 	/* border:solid 1px red; */
@@ -51,6 +57,9 @@ div{
 	height:10vh;
 	text-align:center;
 }
+.Upload a{
+	color:white;
+  }
 /*icon*/
 .Community dt,
 .Notification dt,

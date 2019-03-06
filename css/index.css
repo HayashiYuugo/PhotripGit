@@ -80,6 +80,9 @@ div{
 	flex-wrap:wrap;
 	border-radius:5px;
 }
+#serch_result .comdisplay{
+	margin-bottom:250px;
+}
 /*maincontentsエリア*/
 #maincontents{
 	width:90%;
@@ -97,9 +100,16 @@ div{
 	padding:7px;
 	margin-bottom:45px;
 	box-shadow: -1px 4px 74px -16px rgba(0,0,0,.40);
-	height:240px;
 	border-radius:5px;
 	position: relative;
+}
+.comdisplay:hover {
+	z-index: 1;
+	box-shadow: 0 8px 50px rgba(0, 0, 0, 0.2);
+	-webkit-transform: scale(1.05);
+			transform: scale(1.05);
+	transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;
+	transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
 }
 #com_left{
 	width:40%;
@@ -129,10 +139,9 @@ div{
 	height:50px;
 }
 #com_right button a {
-	color:black;
+	color:white;
 	text-decoration:none;
 }
-
 /*コミュニティ投稿エリア*/
 #image_post_screen{
 	background-color:white;

@@ -120,12 +120,12 @@ $stmt = $db->query($sql);
 
 
 
-//コミュニティ参加メンバーの写真投稿のSQL
+//コミュニティ宛に投稿された画像を表示
 $memberPhoto = [];
 
-$memberPhotosql = ' SELECT members.name,members.picture,photoposts.* FROM members INNER JOIN photoposts ON members.id = photoposts.member_id WHERE community_id =  \''.$_REQUEST['id'].'\'';
+$memberPhotosql = 'SELECT members.name,members.picture,photoposts.* FROM photoposts INNER JOIN members ON photoposts.member_id = members.id WHERE community_id =  \''.$_REQUEST['id'].'\'';
 $st = $db->query($memberPhotosql);
-$memberPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
+$otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -148,11 +148,16 @@ $memberPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100" rel="stylesheet">
 </head>
+<style>
+
+</style>
 <body>
     <div canvas="container"><!--containerエリアの開始-->
         <div id="wrapper"><!--wrapperエリアの開始-->
-            <div id="header"><!--headerエリアの開始-->
-                    <h1><span>Phot</span>rip</h1>
+            <div id="header"><!--headerエリアの開始--> 
+                    <div id="header_title">
+                            <h1><span>Phot</span>rip</h1>
+                    </div>
                     <div id="header_nav"><!--header_navエリアの開始-->
                         <dl>
                             <div class="Photo">
@@ -164,7 +169,7 @@ $memberPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                                 <dd>通知</dd>
                             </div>
                             <div class="Upload">
-                                <dt><i class="fas fa-cloud-upload-alt" id="uploadbtn"></i></dt>
+                                <dt><a href="index.php"><i class="fas fa-cloud-upload-alt" id="uploadbtn"></i></a></dt>
                                 <dd>投稿</dd>		
                             </div>
                             <div class="Menu">
@@ -286,7 +291,34 @@ $memberPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                 </div><!--com_main_rightエリアの終了-->
             </div><!--com_detail_mainエリアの終了-->
 
-            
+            <div id="othercontents"><!--othercontentsエリアの開始-->
+                    <h4><?php print(htmlspecialchars($comtitle,ENT_QUOTES)); ?>に投稿された写真</h4>
+                <div id="entryComPhoto"><!--entryComPhotoエリアの開始-->
+<?php foreach ($otherPhoto as $otherphoto):?>
+					<div class="photodisplay"><!--photodisplayエリアの開始-->
+						<h2><a href="photo_detail.php?id=<?php print(htmlspecialchars($otherphoto['id'], ENT_QUOTES)); ?>"><img src="registrationimage/photoimg/<?php print(htmlspecialchars($otherphoto['photoimg'], ENT_QUOTES)); ?>" width="380" height="285"></h2>
+						<div class="mask"><!--maskエリアの開始-->
+							<div id="mask_header" class="text-white"><!--mask_headerエリアの開始-->
+								<p><?php print(htmlspecialchars($otherphoto['photolocation'], ENT_QUOTES)); ?></p>
+							</div><!--mask_headerエリアの終了-->
+							<div id="mask_profile" class="text-white"><!--mask_profileエリア開始了-->
+								<ul>
+									<li><img src="registrationimage/member_picture/<?php print(htmlspecialchars($otherphoto['picture'], ENT_QUOTES)); ?>" width="30" height="30"><li>
+									<li><?php print(htmlspecialchars($otherphoto['name'], ENT_QUOTES)); ?></li> 
+								</ul>
+							</div><!--mask_profielエリアの終了-->
+							<div id="mask_footer"><!--mask_footerエリアの開始-->
+								<ul>
+									<li><i class="icon_color far fa-heart fa-lg"></i></li>
+									<p id="count_comment"><?= $idcom[$otherphoto['id']]; ?></p>
+									<li><i class="icon_color far fa-comment-alt fa-lg"></i></li>
+								</ul>
+							</div><!--mask_fotterエリアの終了-->
+						</div><!--maskエリアの終了-->
+					</div><!--photodisplay-エリアの終了-->
+<?php endforeach; ?>	
+                </div><!--entryComPhotoエリアの終了-->
+            </div><!--entryComPhotoエリアの終了-->
 
         </div><!--wrapperエリアの終了-->
     </div><!--containerエリアの終了-->

@@ -46,8 +46,6 @@ $photos = $db->prepare('SELECT m.name,m.picture, p.* FROM members
 m, photoposts p WHERE m.id=p.member_id AND p.id=?');
 $photos->execute(array($_REQUEST['id']));
 
-
-
 //コメントの表示機能
 $comments = $db->query('SELECT photoposts.*,reply_comment.*,(SELECT name FROM members WHERE reply_comment.members_id = id) as member_name, (SELECT picture FROM members WHERE reply_comment.members_id = id) as member_picture FROM photoposts,reply_comment WHERE photoposts.id=reply_comment.photoposts_id and photoposts.id=\''.$_REQUEST['id'].'\' ORDER BY reply_comment.id DESC;'); 
 
@@ -59,6 +57,16 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     //コミュニティ人数が$com_member_countに代入
     $count_comment = $row['count_comment'];
 }
+
+
+
+//写真投稿している人のコミュニティ名を取得する処理
+$sql = 'SELECT community.comtitle FROM photoposts INNER JOIN community ON photoposts.community_id = community.id WHERE photoposts.id = \''.$_REQUEST['id'].'\';';
+$stmt = $db->query($sql);
+if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+  $Comtitle = $row['comtitle'];
+}
+
 
 
 
@@ -82,12 +90,17 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   <link rel="stylesheet" type="text/css" href="../css/photo_header.css"><!--headerのcssリンク-->
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
 </head>
+<style>
+
+</style>
 <body>
   <div canvas="container"><!--containerエリアの開始-->
     <div id="wrapper"><!--wrapperエリアの開始-->
 
       <div id="header"><!--headerエリアの開始-->
-            <h1><span>Phot</span>rip</h1>
+          <div id="header_title">
+                <h1><span>Phot</span>rip</h1>
+          </div>
             <div id="header_nav"><!--header_navエリアの開始-->
               <dl>
                 <div class="Community">
@@ -99,7 +112,7 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                   <dd>通知</dd>
                 </div>
                 <div class="Upload">
-                  <dt><i class="fas fa-cloud-upload-alt" id="uploadbtn"></i></dt>
+                  <dt><a href="Photo.php"><i class="fas fa-cloud-upload-alt" id="uploadbtn"></i></a></dt>
                   <dd>投稿</dd>		
                 </div>
                 <div class="Menu">
@@ -159,7 +172,7 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           <div id="belongscom_area"><!--belongscom_areaの開始--->
             <h3 id="belongscom_icon">所属コミュニティ</h3>
             <dt>コミュニティ名</dt>
-            <dd><?php print(htmlspecialchars($photo['belongscom'], ENT_QUOTES)); ?></dd>
+            <dd><?php print(htmlspecialchars($Comtitle));?></dd>
           </div><!--belongscom_areaの終了-->
         </div><!--other_infoエリアの終了-->
 

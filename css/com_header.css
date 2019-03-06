@@ -16,26 +16,33 @@ div{
 /*headerエリア*/
 #header{
 	width:100%;
+	height:100px;
 	background-color:black;
 	display:flex;
 	border-bottom:solid 5px #FACC2E;
+	justify-content:space-between;
 }
-#header h1{
-	padding: 20px;
-    margin-left: 20px;
-    float: left;
+#header_title{
+	padding: 10px;
+	margin-top:5px;
+    margin-left: 25px;
     font-family: 'Quicksand', sans-serif;
-	color: #FACC2E;
+	color: rgb(31, 29, 23);
 	width:10%;
-	margin-right:863px;
+	height:70px;
+}
+#header_title h1{
+	color:#FACC2E;
+	margin-top:3px;
 }
 #header h1 span{
 	color:white;
 }
 #header_nav{
 	width:23%;
-	height:8vh;
+	height:70px;
 	margin-top:15px;
+	margin-right:60px;
 }
 #header_nav dl{
 	/* border:solid 1px red; */
@@ -60,6 +67,9 @@ div{
 	color:white;
 	/* width:100%; */
 	margin-bottom:5px;
+}
+.Upload a{
+    color:white;
 }
 /*iconHover*/
 .Photo dt :hover,

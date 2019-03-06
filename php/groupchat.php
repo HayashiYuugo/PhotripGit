@@ -1,4 +1,5 @@
 <?php
+
 session_start();//セッションの開始
 require('db/dbconnect.php');//DBに接続
 
@@ -20,6 +21,7 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 
 //セッションで撮影場所の値を持ち越し
 $location_date = $_SESSION['location'];//撮影場所
+
 
 //チャット機能エリア
 if($_POST['message']) {//messageボタンを押した時に

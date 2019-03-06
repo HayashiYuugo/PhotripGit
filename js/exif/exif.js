@@ -81,12 +81,6 @@ for (var prop in obj){
       case 'Contrast':/**コントラスト*/
         properties += 'コントラスト' + ": " + obj[prop] + "<br>";
         break;
-      case 'Saturation':/**彩度*/
-        properties += '彩度' + ": " + obj[prop] + "<br>";
-        break;
-      case 'Latitude':/**彩度*/
-      properties += '緯度' + ": " + obj[prop] + "<br>";
-      break;
     }
 }
 

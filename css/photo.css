@@ -72,6 +72,10 @@ div{
 	margin:0 auto;
 	display:flex;
 	flex-wrap:wrap;
+	margin-left:12px;
+}
+#serch_result .photodisplay {
+	margin-bottom:250px;
 }
 /*maincontents*/
 #maincontents{
@@ -79,15 +83,17 @@ div{
 	margin:0 auto;
 	display:flex;
 	flex-wrap:wrap;
+	margin-left:12px;
 }
 /*写真投稿エリア*/
 .photodisplay {
+	margin-top:10px;
+	margin-bottom:10px;
 	overflow:hidden;
-	margin:10px 8px 10px 16px;
-    position:relative; 
-    width:23%;
+	position:relative; 
+	width:calc( 100% / 4 - 15px);
 	height:250px;
-	margin-left:20px;
+	margin-right:15px;
 }
 .photodisplay .caption {
 	font-size:		130%;
@@ -163,7 +169,7 @@ div{
 #image_post_screen h2{
 	text-align:center;
 	margin-top:25px;
-	margin-bottom:30px;
+	margin-bottom:50px;
 }
 #image_post_left{	
 	width:calc(88% / 2 - 60px);
@@ -191,8 +197,10 @@ div{
 #image_post_right button{
 	width:100%;
 }
-
-.boforeicon1:before,
+#image_post_right .dropdown{
+	margin-bottom:15px;
+}
+.beforeicon1:before,
 .beforeicon2:before,
 .beforeicon3:before,
 .beforeicon4:before,

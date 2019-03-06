@@ -37,14 +37,12 @@ div{
     position: relative;
     font-size:1.5em;
     margin-bottom:150px;
-
 }
 #share_list ul{
     display:flex;
     position:absolute;
     top:20px;
     right:100px;
-
 }
 #share_list ul li:nth-of-type(1){
     margin-right:35px;
@@ -177,15 +175,16 @@ div{
 }
 #commentcontents{
     width:100%;
-    height:400px;
+    height:275px;
     margin-top:70px;
     overflow-y:scroll;
 }
 #comment_result{
+    width:97%;
     margin-bottom:20px;
     display:flex;
     position: relative;
-    box-shadow: 5px 4px 74px -16px rgba(0,0,0,.40);
+    box-shadow: 0.2rem 0.2rem 0.2rem #bdbdbd;
 }
 #comment_left {
     width:20%;
@@ -216,4 +215,5 @@ div{
     height:400px;
     top:1660px;
     left:230px;
+    margin-bottom:40px;
 }
