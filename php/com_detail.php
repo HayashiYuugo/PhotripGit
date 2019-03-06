@@ -332,7 +332,7 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
 					<div id="slidecont_head_subtitle">
 						<li><a href="index.php">コミュニティ</a></li>
 						<li><a href="Photo.php">写真</a></li>
-					</div>
+					</div><!--slidecont_head_subtitleの終了-->
 				</ul>
 			</div><!--slidecont_headerエリアの終了-->
 			<div id="slidecont_main"><!--slidecont_mainエリアの開始-->
