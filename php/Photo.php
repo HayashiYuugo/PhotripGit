@@ -15,11 +15,10 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   else{//最後の行動から1時間以内に行動がなければ
 	header('Location: login/login.php');//ログイン画面に戻る
 	exit();
-	}
+}
 
 
-
-	//コミュニティid格納
+//コミュニティid格納
 $cominfo = 'SELECT id FROM community';
 $stmt = $db->query($cominfo);
 if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -28,26 +27,26 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
 //写真投稿画面
-	if(!empty($_POST)) {//投稿するボタンがクリックされたとき
-    $image = date('YmdHis') . $_FILES['image']['name'];//画像データを時刻に変換
-    move_uploaded_file($_FILES['image']['tmp_name'], 'registrationimage/photoimg/' . $image);//ファイルのアップロード
-    $photo['join'] = $_POST;//$photo['join]に格納
-		$photo['join']['photoimg'] = $image;
-    
-    $insertphoto = $db->prepare("INSERT INTO photoposts SET member_id=?,community_id=?,photoimg=?,photolocation=?,photostory=?,belongscom=?,use_camera=?,use_lens=?,created=NOW()");
-    //SQL文を実行
-    $insertphoto->execute(array(
-			$member['id'],
-			$photo['join']['belongscom'],
-      $photo['join']['photoimg'],//投稿写真
-      $photo['join']['photolocation'],//撮影場所
-      $photo['join']['photostory'],//ストーリー(写真にまつわるストーリー)
-      $comid,//所属コミュニティ
-      $photo['join']['use_camera'],//使用カメラ
-			$photo['join']['use_lens']//使用レンズ
-		));
-    header('Location: Photo.php');
-		exit();
+if(!empty($_POST)) {//投稿するボタンがクリックされたとき
+	$image = date('YmdHis') . $_FILES['image']['name'];//画像データを時刻に変換
+	move_uploaded_file($_FILES['image']['tmp_name'], 'registrationimage/photoimg/' . $image);//ファイルのアップロード
+	$photo['join'] = $_POST;//$photo['join]に格納
+	$photo['join']['photoimg'] = $image;
+	
+	$insertphoto = $db->prepare("INSERT INTO photoposts SET member_id=?,community_id=?,photoimg=?,photolocation=?,photostory=?,belongscom=?,use_camera=?,use_lens=?,created=NOW()");
+	//SQL文を実行
+	$insertphoto->execute(array(
+		$member['id'],
+		$photo['join']['belongscom'],
+		$photo['join']['photoimg'],//投稿写真
+		$photo['join']['photolocation'],//撮影場所
+		$photo['join']['photostory'],//ストーリー(写真にまつわるストーリー)
+		$comid,//所属コミュニティ
+		$photo['join']['use_camera'],//使用カメラ
+		$photo['join']['use_lens']//使用レンズ
+	));
+	header('Location: Photo.php');
+	exit();
 }
 
 //写真投稿表示をする為の処理
@@ -65,8 +64,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$idcom[$photoid] = $photovalue;
 }
 
-
-
 // 検索機能
 // 検索結果ようにからの配列を用意する
 $row = [];
@@ -83,7 +80,6 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
-
 //写真投稿時にコミュニティ名を表示する処理
 $memEntryrow = [];
 $memCommunity = 'SELECT community.id,community.comtitle FROM community INNER JOIN member_community ON community.id = member_community.community_id WHERE member_community.member_id = '.$member['id'];
@@ -92,6 +88,7 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -110,9 +107,6 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,400" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:300" rel="stylesheet">
 </head>
-<style>
-
-</style>
 <body>
 	<div canvas="container"><!--containerエリアの開始-->
 		<div id="wrapper"><!--wrapperエリアの開始-->
@@ -139,58 +133,55 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 								<dd>メニュー</dd>
 							</div>
 					</div><!--header_navエリアの終了-->
-			</div><!--heaerエリアの終了-->
+				</div><!--heaerエリアの終了-->
 
-			<div id="header_after_image"><!--header_after_imageエリアの開始-->
-					<p></p>
-			</div><!--header_afterエリアの終了-->
+				<div id="header_after_image"><!--header_after_imageエリアの開始-->
+						<p></p>
+				</div><!--header_afterエリアの終了-->
 
-			<p><img src="registrationimage/member_picture/<?php print(htmlspecialchars($member['picture'], ENT_QUOTES));?>" id="profile_image"></p>
+				<p><img src="registrationimage/member_picture/<?php print(htmlspecialchars($member['picture'], ENT_QUOTES));?>" id="profile_image"></p>
 
-			<form action="Photo.php" method="GET"><!--コミュニティ検索機能エリアのform-->
-				<div id="serch-input"><!--serch-inputエリアの開始-->
-					<input type="search" class="form-control" name="serch" id="serch"  placeholder="キーワード、地名">
-					<input type="submit" class="btn btn-primary" value="検索">
-				</div><!--serch-inputエリアの終了-->
-			</form>
+				<form action="Photo.php" method="GET"><!--コミュニティ検索機能エリアのform-->
+					<div id="serch-input"><!--serch-inputエリアの開始-->
+						<input type="search" class="form-control" name="serch" id="serch"  placeholder="キーワード、地名">
+						<input type="submit" class="btn btn-primary" value="検索">
+					</div><!--serch-inputエリアの終了-->
+				</form>
 
+				<?php if(!empty($row)) {?>
+				<div id="serch_count"><!--serch-countエリアの開始-->
+					<p　id="serch_count">検索結果<?php print(htmlspecialchars($rowcount,ENT_QUOTES));?>件..</p>
+				</div><!--serch-countエリアの終了-->
+				<?php }?>
 
-<?php if(!empty($row)) {?>
-		<div id="serch_count"><!--serch-countエリアの開始-->
-			<p　id="serch_count">検索結果<?php print(htmlspecialchars($rowcount,ENT_QUOTES));?>件..</p>
-		</div><!--serch-countエリアの終了-->
-<?php }?>
-
-
-<div id="serch_result"><!--serch_resultの開始エリア-->
-<?php foreach($row as $result) {?>
-			<div class="photodisplay"><!--photodisplayエリアの開始-->
-        <h2><a href="photo_detail.php?id=<?php print(htmlspecialchars($result['id'], ENT_QUOTES)); ?>"><img src="registrationimage/photoimg/<?php print(htmlspecialchars($result['photoimg'], ENT_QUOTES)); ?>" width="380" height="285"></h2>
-        <div class="mask"><!--maskエリアの開始-->
-          <div id="mask_header" class="text-white"><!--mask_headerエリアの開始-->
-            <p><?php print(htmlspecialchars($result['photolocation'], ENT_QUOTES)); ?></p>
-          </div><!--mask_headerエリアの終了-->
-          <div id="mask_profile" class="text-white"><!--mask_profileエリア開始了-->
-            <ul>
-              <li><img src="registrationimage/member_picture/<?php print(htmlspecialchars($result['picture'], ENT_QUOTES)); ?>" width="30" height="30"><li>
-							<li><?php print(htmlspecialchars($result['name'], ENT_QUOTES)); ?></li> 
-            </ul>
-          </div><!--mask_profielエリアの終了-->
-          <div id="mask_footer"><!--mask_footerエリアの開始-->
-            <ul>
-							<li><i class="icon_color far fa-heart fa-lg"></i></li>
-							<p id="count_comment"><?= $idcom[$result['id']]; ?></p>
-							<li><i class="icon_color far fa-comment-alt fa-lg"></i></li>
-            </ul>
-		  		</div><!--mask_fotterエリアの終了-->
-				</div><!--maskエリアの終了-->
-      </div><!--photodisplay-エリアの終了-->
-<?php }?>
-		</div><!--serch_resultの終了エリア-->
-
+				<div id="serch_result"><!--serch_resultの開始エリア-->
+				<?php foreach($row as $result) {?>
+						<div class="photodisplay"><!--photodisplayエリアの開始-->
+							<h2><a href="photo_detail.php?id=<?php print(htmlspecialchars($result['id'], ENT_QUOTES)); ?>"><img src="registrationimage/photoimg/<?php print(htmlspecialchars($result['photoimg'], ENT_QUOTES)); ?>" width="380" height="285"></h2>
+							<div class="mask"><!--maskエリアの開始-->
+								<div id="mask_header" class="text-white"><!--mask_headerエリアの開始-->
+									<p><?php print(htmlspecialchars($result['photolocation'], ENT_QUOTES)); ?></p>
+								</div><!--mask_headerエリアの終了-->
+								<div id="mask_profile" class="text-white"><!--mask_profileエリア開始了-->
+									<ul>
+										<li><img src="registrationimage/member_picture/<?php print(htmlspecialchars($result['picture'], ENT_QUOTES)); ?>" width="30" height="30"><li>
+										<li><?php print(htmlspecialchars($result['name'], ENT_QUOTES)); ?></li> 
+									</ul>
+								</div><!--mask_profielエリアの終了-->
+								<div id="mask_footer"><!--mask_footerエリアの開始-->
+									<ul>
+										<li><i class="icon_color far fa-heart fa-lg"></i></li>
+										<p id="count_comment"><?= $idcom[$result['id']]; ?></p>
+										<li><i class="icon_color far fa-comment-alt fa-lg"></i></li>
+									</ul>
+								</div><!--mask_fotterエリアの終了-->
+							</div><!--maskエリアの終了-->
+						</div><!--photodisplay-エリアの終了-->
+				<?php }?>
+				</div><!--serch_resultの終了エリア-->
 
 			<div id="maincontents"><!--maincontentsエリアの開始-->
-<?php foreach ($photos as $photo):?>
+			<?php foreach ($photos as $photo):?>
 					<div class="photodisplay"><!--photodisplayエリアの開始-->
 						<h2><a href="photo_detail.php?id=<?php print(htmlspecialchars($photo['id'], ENT_QUOTES)); ?>"><img src="registrationimage/photoimg/<?php print(htmlspecialchars($photo['photoimg'], ENT_QUOTES)); ?>" width="380" height="285"></h2>
 						<div class="mask"><!--maskエリアの開始-->
@@ -212,9 +203,8 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 							</div><!--mask_fotterエリアの終了-->
 						</div><!--maskエリアの終了-->
 					</div><!--photodisplay-エリアの終了-->
-<?php endforeach; ?>	
+			<?php endforeach; ?>	
 			</div><!--maincontentsエリアの終了-->
-
 		</div><!--wrapperエリアの終了-->
 	</div><!--containerエリアの終了-->
 
@@ -231,39 +221,39 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				</ul>
 			</div><!--slidecont_headerエリアの終了-->
 			<div id="slidecont_main"><!--slidecont_mainエリアの開始-->
-		        <ul>
-		        	<li class="slidecont_icon"><a href="index.php">トップ</a></li>
-		        	<li class="slidecont_icon"><a href="mypage.php">マイページ</a></li>
-		        	<li class="slidecont_icon"><a href="login/logout.php">ログアウト</a></li>
-		        </ul>
+				<ul>
+					<li class="slidecont_icon"><a href="index.php">トップ</a></li>
+					<li class="slidecont_icon"><a href="mypage.php">マイページ</a></li>
+					<li class="slidecont_icon"><a href="login/logout.php">ログアウト</a></li>
+				</ul>
 	    </div><!--slidecont_mainエリアの終了-->
 	  </div><!--slidecontentsエリアの終了-->
 	</div><!--sb-rightエリアの終了-->
 
-		<!--popup表示エリア-->
-		<div id="image_post_screen"><!--image_post_screenエリアの開始-->
-		<h2>写真投稿</h2>
-		<form action="" method="POST" enctype="multipart/form-data">
+	<!--popup表示エリア-->
+	<div id="image_post_screen"><!--image_post_screenエリアの開始-->
+	<h2>写真投稿</h2>
+	<form action="" method="POST" enctype="multipart/form-data">
 
-		<div id="image_post_left"><!--image_post_leftエリアの開始-->
-			<div class="form-group"><!--投稿写真エリア-->
-				<label for="photoimg"><span class="beforeicon1">画像をアップロードする</span></label>
-				<input type="file" class="form-control" name="image" placeholder="写真をおえらびください" required>
-				<div class="imagepre"></div>
-			</div>
-			<div class="form-group"><!--撮影場所エリア-->
-				<label for="photolocation"><span class="beforeicon2">撮影場所</span></label>
-				<input type="name" class="form-control" name="photolocation" placeholder="場所、地名" required>
-			</div>
-		</div><!--image_post_leftエリアの終了-->
+	<div id="image_post_left"><!--image_post_leftエリアの開始-->
+		<div class="form-group"><!--投稿写真エリア-->
+			<label for="photoimg"><span class="beforeicon1">画像をアップロードする</span></label>
+			<input type="file" class="form-control" name="image" placeholder="写真をおえらびください" required>
+			<div class="imagepre"></div>
+		</div>
+		<div class="form-group"><!--撮影場所エリア-->
+			<label for="photolocation"><span class="beforeicon2">撮影場所</span></label>
+			<input type="name" class="form-control" name="photolocation" placeholder="場所、地名" required>
+		</div>
+	</div><!--image_post_leftエリアの終了-->
 
 		<div id="image_post_right"><!--iamge_post_rightエリアの開始-->
 			<div class="form-group">
 				<label for="belongscom"><span class="beforeicon3">コミュニティを選択</span></label>
 				<select class="form-control" id="exampleFormControlSelect1" name="belongscom">
-<?php foreach($memEntryrow as $mementry){?>
+			<?php foreach($memEntryrow as $mementry){?>
 					<option value="<?php print(htmlspecialchars($mementry['id'],ENT_QUOTES));?>"><?php print(htmlspecialchars($mementry['comtitle'],ENT_QUOTES)); ?></option>
-<?php } ?>
+			<?php } ?>
 				</select>
 			</div>
 			<div class="form-group"><!--使用カメラエリア-->
@@ -284,11 +274,10 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	</div><!--image_post_screenエリアの終了-->
 
 	<div class="form-group"><!--所属コミュニティエリア-->
-				<label for="belongscom"><span class="beforeicon3">所属コミュニティ</span></label>
-				<input type="name" class="form-control" name="belongscom" placeholder="所属コミュニティをお書きください" required>
-			</div>
+		<label for="belongscom"><span class="beforeicon3">所属コミュニティ</span></label>
+		<input type="name" class="form-control" name="belongscom" placeholder="所属コミュニティをお書きください" required>
+	</div>
 
-		
 		
 <script type="text/javascript" src="../js/jquery-2.0.2.min.js"></script><!--jQueryのリンク-->
 <script type="text/javascript" src="../js/slidebar/slidebars.min.js"></script><!--slidebarのリンク-->
@@ -300,36 +289,8 @@ $memEntryrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script type="text/javascript" src="../js/collapser/collapser.js"></script><!--collapserの相対リンク-->
 <script type="text/javascript" src="../js/changeDateHeading/changeDateHeading.js"></script><!--changeDateHeading.jsの相対リンク-->
 
-<script>
-</script>
-
 </body>
 </html>
-
-
-<!--
-
-週プレやることリスト
-
-4.トップ画面の画像のテキストのバリエーションを増やす
-5.ロゴを作る
-6.
-
-		」3.6日までに完成
-		
-4.新規登録で、住んでいる都道府県を登録させれおき、それをもとに、communnituy画面であなたの住んでいる地域の投稿として表示する △
-5.マイページ機能 ☓ 
-6.いいね機能 △ 2/9まで
-7.通知機能 △ 2/11まで
-															」大阪就プレまでに実装する
-
-
-
-
-やる事
-
-														
---->
 
 
 

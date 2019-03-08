@@ -7,7 +7,7 @@
     $('#image_post_screen').bPopup({
       follow: [false, false],
       speed: 500,
-      position: [90,  100],
+      position: [90,  80],
   transition: 'fadeIn',
   transitionClose:'fadeIn',
     });

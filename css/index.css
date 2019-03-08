@@ -80,7 +80,7 @@ div{
 	flex-wrap:wrap;
 	border-radius:5px;
 }
-#serch_result .comdisplay{
+#serch_result .comdisplay:last-child{
 	margin-bottom:250px;
 }
 /*maincontentsエリア*/

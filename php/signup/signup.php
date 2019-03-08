@@ -3,12 +3,10 @@
 //セッションの開始
 session_start();
 
-//データベース接続のリンク
+//データベース接続
 require('../db/dbconnect.php');
 
 if(!empty($_POST)) {//$_POSTを送信したとき	
-
-
 
 	$fileName = $_FILES['image']['name'];//アップロードされたファイル名を$fileNmaeに格納
 	if(!empty($fileName)) {//画像がアップロードされていれば
@@ -54,25 +52,22 @@ if(!empty($_POST)) {//$_POSTを送信したとき
 <link rel="stylesheet" type="text/css" href="../../css/signup/signup.css"><!--cssのリンク-->
 <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
 </head>
-<style>
-
-</style>
 <body>
 	<div id="wrapper"><!---wrapperエリアの開始-->
 
 		<div id="maincontents"><!--maincotentエリアの開始-->
 
-			<div id="service_title">
+			<div id="service_title"><!--service_titleエリアの開始-->
 				<h1 class="text-center">Phot<span>rip</span></h1>
-			</div>
+			</div><!--service_titleエリアの終了-->
 
 
-			<?php if($error['email'] === 'duplicate') : ?>
+			<?php if($error['email'] === 'duplicate') { ?>
 			<p class="emailerror">このメールアドレスはすでに登録されています</p>
-			<?php endif;?>
-			<?php if($error['pass'] === 'same') : ?>
+			<?php } ?>
+			<?php if($error['pass'] === 'same') { ?>
 			<p class="passerror">パスワードが一致しません。正しくご入力ください。</p>
-			<?php endif;?>
+			<?php } ?>
 
 			<form action="" method="POST" enctype="multipart/form-data">
 				<div class="form-group"><!--ユーザーネームエリア-->
@@ -89,7 +84,7 @@ if(!empty($_POST)) {//$_POSTを送信したとき
 				</div>
 				<div class="form-group"><!--プロフィール写真エリア-->
 					<label for="profileimg">プロフィール写真を選択</label>
-						<input type="file" class="form-control-file" name="image" required>
+					<input type="file" class="form-control-file" name="image" required>
 				<div class="imagepre"></div>
 				</div>
 
@@ -99,9 +94,7 @@ if(!empty($_POST)) {//$_POSTを送信したとき
 		</div><!--maincontentsエリアの終了-->
 
 		<div id="subcontents"><!--subcontenstエリアの開始-->
-
 			<p>アカウントをお持ちですか？<a href="../login/login.php">ログイン</a>はこちら</p>
-
 		</div><!--subcontentsエリアの終了-->
 
 	</div><!---wrapperエリアの終了-->
@@ -111,13 +104,6 @@ if(!empty($_POST)) {//$_POSTを送信したとき
 <script type="text/javascript" src="../../js/bgswitcher/bgswitcher.js"></script><!--bgswithcherの相対jsリンク-->
 <script type="text/javascript" src="../../js/imagepreview/imagepreview.js"></script><!--imagepreviewの相対jsリンク-->
 <script type="text/javascript" src="../../js/email-auto/jquery.email-autocomplete.js"></script><!--imagepreviewの相対jsリンク-->
-<script>
-$(function(){
-	
 
-
-});
-		
-</script>
 </body>
 </html>

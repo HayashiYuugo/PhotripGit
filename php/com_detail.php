@@ -2,7 +2,8 @@
 
 session_start();//セッションの開始
 
-require('db/dbconnect.php');//DB接続ファイルを読み込み。
+//DB接続
+require('db/dbconnect.php');
 
 //ログイン処理(パーツ化したいがエラーが出る)
 //最後の行動から、1時間ログインが有効
@@ -81,7 +82,6 @@ if($_POST['enter']) {//投稿ボタンをクリックした時
 }
 
 
-
 //コミュニティ人数が何人か取得する処理
 $sql = 'SELECT COUNT(*) AS member_count FROM member_community WHERE community_id = \''.$_REQUEST['id'].'\';';
 $stmt = $db->query($sql);
@@ -90,10 +90,8 @@ if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $com_member_count = $row['member_count']; 
 }
 
-//  コミュニティ参加の処理
+//コミュニティ参加の処理
 $entry_com = $db->query('SELECT count(member_id) AS count FROM member_community WHERE community_id = \''.$_REQUEST['id'].'\';');
-
-
 
 
 /*コミュニティのコメント投稿機能 */
@@ -113,11 +111,9 @@ exit();
 $comments = $db->query('SELECT community.*,com_reply_comment.*,(SELECT name FROM members WHERE com_reply_comment.member_id = id) as member_name, (SELECT picture FROM members WHERE com_reply_comment.member_id = id) as member_picture FROM community,com_reply_comment WHERE community.id=com_reply_comment.community_id and community.id=\''.$_REQUEST['id'].'\' ORDER BY com_reply_comment.id DESC;'); 
 
 
-
 //このコミュニティに参加してるmemberを取得
 $sql = 'SELECT members.name,members.picture FROM member_community INNER JOIN members ON member_community.member_id = members.id AND member_community.community_id = \''.$_REQUEST['id'].'\'';
 $stmt = $db->query($sql);
-
 
 
 //コミュニティ宛に投稿された画像を表示
@@ -148,15 +144,12 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100" rel="stylesheet">
 </head>
-<style>
-
-</style>
 <body>
     <div canvas="container"><!--containerエリアの開始-->
         <div id="wrapper"><!--wrapperエリアの開始-->
             <div id="header"><!--headerエリアの開始--> 
                     <div id="header_title">
-                            <h1><span>Phot</span>rip</h1>
+                        <h1><span>Phot</span>rip</h1>
                     </div>
                     <div id="header_nav"><!--header_navエリアの開始-->
                         <dl>
@@ -176,6 +169,7 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                                 <dt><i class="fas fa-bars menubtn"></i></dt>
                                 <dd>メニュー</dd>
                             </div>
+                        </dl>
                     </div><!--header_navエリアの終了-->
             </div><!--heaerエリアの終了-->
 
@@ -186,41 +180,41 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                     <p><img src="registrationimage/thumimg/<?php print(htmlspecialchars($thumimg, ENT_QUOTES)); ?>" width="250" height="200"></p>
                 </div><!--com_header_leftエリアの終了-->
 
-                <div id="com_header_right">
+                <div id="com_header_right"><!--com_header_rightエリアの開始-->
                     <div id="com_header_title"><!---com_header_titleエリアの開始-->
-                            <h2><?php print(htmlspecialchars($comtitle,ENT_QUOTES));?></h2>
-                        </div><!--com_header_titleエリアの終了-->
-                        <div id="member_entry"><!--member_emtryエリアの開始-->
-                            <div id="com_header_membercount"><!--com_header_membercountエリアの開始-->
-                                <h3>メンバー数<span class="numrestcount"><?php print(htmlspecialchars( $com_member_count));?></span>人</h3>
-                            </div><!--com_header_membercountエリアの終了-->
-                            <div id="numrest">
-                                <p><span class="numrestcount"><?php print(htmlspecialchars($numrest, ENT_QUOTES)); ?></span>人まで</p>
-                            </div>
-                        </div><!--member_entryエリアの終了-->
-                        <div id="com_header_entry"><!--com_header_entryエリアの開始-->
-                                
-<script>
-    /**
-     *コミュニティの返り値によりフォーム送信
-    */
-    function submitChk () {
-        /* 確認ダイアログ表示 */
-        var enterconf = confirm ( "参加してもよろしいですか？\n\n参加しない場合は[キャンセル]ボタンを押して下さい");
-        /* send_flg が TRUEなら送信、FALSEなら送信しない */
-        return enterconf;
-    }
-</script> 
+                        <h2><?php print(htmlspecialchars($comtitle,ENT_QUOTES));?></h2>
+                    </div><!--com_header_titleエリアの終了-->
+                    <div id="member_entry"><!--member_emtryエリアの開始-->
+                        <div id="com_header_membercount"><!--com_header_membercountエリアの開始-->
+                            <h3>メンバー数<span class="numrestcount"><?php print(htmlspecialchars( $com_member_count));?></span>人</h3>
+                        </div><!--com_header_membercountエリアの終了-->
+                        <div id="numrest"><!--numrestエリアの開始-->
+                            <p><span class="numrestcount"><?php print(htmlspecialchars($numrest, ENT_QUOTES)); ?></span>人まで</p>
+                        </div><!--numrestエリアの終了-->
+                    </div><!--member_entryエリアの終了-->
+
+                    <div id="com_header_entry"><!--com_header_entryエリアの開始-->
+                            <script>
+                                /**
+                                 *コミュニティの返り値によりフォーム送信
+                                */
+                                function submitChk () {
+                                    /* 確認ダイアログ表示 */
+                                    var enterconf = confirm ( "参加してもよろしいですか？\n\n参加しない場合は[キャンセル]ボタンを押して下さい");
+                                    /* send_flg が TRUEなら送信、FALSEなら送信しない */
+                                    return enterconf;
+                                }
+                            </script> 
 
                             <form action="" method="POST" id="sweetalert" onsubmit="return submitChk()" target="_blank"><!--コミュニティ参加エリアの開始-->
                                 <input type="submit" class="btn btn-success" value="参加する" name="enter" id="enter"><a href="groupchat.php?id=<?php print(htmlspecialchars($_GET['id'], ENT_QUOTES));?>" target="_blank"></a></button>
                             </form>
                         </div><!--com_header_entryエリアの終了-->
-                </div><!--com_headder_titleエリアの終了-->
+                </div><!--com_header_rightエリアの終了-->
 
-                <div id="com_detail_comment">
+                <div id="com_detail_comment"><!--com_detail_commentエリアの開始-->
                     <p><?php print(htmlspecialchars($comment, ENT_QUOTES)); ?></p>
-                </div>
+                </div><!--com_deatil_commentエリアの終了-->
 
             </div><!--com_detail_headerエリアの終了-->
 
@@ -228,23 +222,23 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                 <div id="com_main_left"><!--com_main_leftエリアの開始-->
                     <dl>
                         <dt id="com_location">撮影場所</dt>
-                            <dd><?php print(htmlspecialchars($location, ENT_QUOTES)); ?></dd>
+                        <dd><?php print(htmlspecialchars($location, ENT_QUOTES)); ?></dd>
                         <dt id="com_date">撮影日時</dt>
-                            <dd><?php $str = $date;
-                                        $dt = date('Y年m月d日', strtotime($str));
-                                        print(htmlspecialchars($dt, ENT_QUOTES)); ?></dd>
+                        <dd><?php $str = $date;
+                        $dt = date('Y年m月d日', strtotime($str));
+                        print(htmlspecialchars($dt, ENT_QUOTES)); ?></dd>
                         <dt id="subject">被写体</dt>
-                            <dd><?php print(htmlspecialchars($subject, ENT_QUOTES)); ?></dd>
+                        <dd><?php print(htmlspecialchars($subject, ENT_QUOTES)); ?></dd>
                         <dt id="use_camera">主な使用カメラ</dt>
-                            <dd><?php print(htmlspecialchars($camera[$usecamera], ENT_QUOTES));?></dd>
+                        <dd><?php print(htmlspecialchars($camera[$usecamera], ENT_QUOTES));?></dd>
                         <dt id="creator">開設者</dt>
-                            <dd><img src="registrationimage/member_picture/<?php print(htmlspecialchars($compicture, ENT_QUOTES)); ?>" width="40" height="40"></dd>
-                            <dd><?php print(htmlspecialchars($comname, ENT_QUOTES)); ?></dd>
+                        <dd><img src="registrationimage/member_picture/<?php print(htmlspecialchars($compicture, ENT_QUOTES)); ?>" width="40" height="40"></dd>
+                        <dd><?php print(htmlspecialchars($comname, ENT_QUOTES)); ?></dd>
                         <dt id="opning_date">開設日</dt>
                         <dd><?php 
-                                $str = $created;
-                                $dt = date('Y年m月d日', strtotime($str));
-                                print(htmlspecialchars($dt,ENT_QUOTES));?></dd>
+                        $str = $created;
+                        $dt = date('Y年m月d日', strtotime($str));
+                        print(htmlspecialchars($dt,ENT_QUOTES));?></dd>
                     </dl>
                 </div><!--com_main_leftエリアの終了-->
                 <div id="com_main_middle"><!--com_main_middleエリアの開始-->
@@ -271,7 +265,7 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                         </div><!--comment_headerエリアの終了-->
 
                         <div id="commentcontents"><!--commentcontentsエリアの開始-->
-    <?php foreach($comments as $comment){?>
+                        <?php foreach($comments as $comment){?>
                             <div id="comment_result"><!--comment_resultエリアの開始-->
                                 <div id="comment_left"><!--comment_leftエリアの開始-->
                                     <p><img src="registrationimage/member_picture/<?php print(htmlspecialchars($comment['member_picture'], ENT_QUOTES));?>" class="member_img" width="40" height="40"></p>
@@ -281,20 +275,20 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
                                     <p><?php print(htmlspecialchars($comment['comment'], ENT_QUOTES)); ?></p>
                                 </div><!--comment_rightエリアの終了-->
                                 <p id="comment_date"><?php 
-                                                $str = $comment['created'];
-                                                $dt = date('m月d日 H時i分', strtotime($str)); 
-                                                print(htmlspecialchars($dt, ENT_QUOTES)); ?></p>
+                                $str = $comment['created'];
+                                $dt = date('m月d日 H時i分', strtotime($str)); 
+                                print(htmlspecialchars($dt, ENT_QUOTES)); ?></p>
                             </div><!--comment_resultエリアの終了-->
-    <?php }?>
+                        <?php }?>
                         </div><!--commentcontentsエリアの終了-->
                     </form>                            
                 </div><!--com_main_rightエリアの終了-->
             </div><!--com_detail_mainエリアの終了-->
 
             <div id="othercontents"><!--othercontentsエリアの開始-->
-                    <h4><?php print(htmlspecialchars($comtitle,ENT_QUOTES)); ?>に投稿された写真</h4>
+                <h4><span id="comentry_icon"><?php print(htmlspecialchars($comtitle,ENT_QUOTES)); ?>に投稿された写真</span></h4>
                 <div id="entryComPhoto"><!--entryComPhotoエリアの開始-->
-<?php foreach ($otherPhoto as $otherphoto):?>
+                <?php foreach ($otherPhoto as $otherphoto){?>
 					<div class="photodisplay"><!--photodisplayエリアの開始-->
 						<h2><a href="photo_detail.php?id=<?php print(htmlspecialchars($otherphoto['id'], ENT_QUOTES)); ?>"><img src="registrationimage/photoimg/<?php print(htmlspecialchars($otherphoto['photoimg'], ENT_QUOTES)); ?>" width="380" height="285"></h2>
 						<div class="mask"><!--maskエリアの開始-->
@@ -316,10 +310,9 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
 							</div><!--mask_fotterエリアの終了-->
 						</div><!--maskエリアの終了-->
 					</div><!--photodisplay-エリアの終了-->
-<?php endforeach; ?>	
+                <?php }?>	
                 </div><!--entryComPhotoエリアの終了-->
             </div><!--entryComPhotoエリアの終了-->
-
         </div><!--wrapperエリアの終了-->
     </div><!--containerエリアの終了-->
 
@@ -329,7 +322,7 @@ $otherPhoto = $st->fetchAll(PDO::FETCH_ASSOC);
 				<ul>
 						<li class="slidecont_head_icon"><i class="far fa-user-circle fa-lg"></i></li>
 						<li class="slidecont_head_icon"><i class="fas fa-camera fa-lg camera"></i></li>
-					<div id="slidecont_head_subtitle">
+					<div id="slidecont_head_subtitle"><!--slidecont_head_subtitleエリアの開始-->
 						<li><a href="index.php">コミュニティ</a></li>
 						<li><a href="Photo.php">写真</a></li>
 					</div><!--slidecont_head_subtitleの終了-->

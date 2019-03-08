@@ -54,3 +54,10 @@ h1 span{
     padding-top:40px;
     font-size:1.3em;
 }
+/*エラーメッセージ*/
+.error{
+    color:red;
+    position:absolute;
+    top:220px;
+    left:450px;
+  }

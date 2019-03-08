@@ -36,14 +36,13 @@ if(!empty($_POST)) {//$_POSTから値が渡ってきている時に
 <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Indie+Flower" rel="stylesheet"><!--googlefontのリンク-->
 <link rel="stylesheet" type="text/css" href="../../css/signup/signupconf.css"><!---cssの相対リンク-->
 <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
-
 </head>
 <body>
 	<div id="wrapper"><!--wrapperエリアの開始-->
 		<div id="maincontents"><!--maincontentsエリアの開始-->
-		<div id="service_title"><!--service_titleエリアの開始-->
-			<h1>Phot<span>rip</span></h1>
-		</div><!--service_titleエリアの終了-->
+			<div id="service_title"><!--service_titleエリアの開始-->
+				<h1>Phot<span>rip</span></h1>
+			</div><!--service_titleエリアの終了-->
 			<form action="" method="POST">
 				<input type="hidden" name="action" value="submit">
 				<dl>
@@ -52,32 +51,22 @@ if(!empty($_POST)) {//$_POSTから値が渡ってきている時に
 					<dt>メールアドレス</dt>
 					<dd><?= htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES); ?></dd>
 					<dt>パスワード</dt>
-					<dd>
-						表示されません。
-					</dd>
+					<dd>表示されません。</dd>
 					<dt>プロフィール写真</dt>
 					<dd id="imagepre">
-					<? if($_SESSION['join']['image'] !== ''): ?>
-<img src="../registrationimage/member_picture/<?= (htmlspecialchars($_SESSION['join']['image'], ENT_QUOTES));?> " width="150" height="150">
-<? endif; ?>
+					<?php if($_SESSION['join']['image'] !== ''){ ?>
+						<img src="../registrationimage/member_picture/<?= (htmlspecialchars($_SESSION['join']['image'], ENT_QUOTES));?> " width="150" height="150">
+					<?php } ?>
 					</dd>
 				</dl>
 				<button type="submit" class="btn-primary mb-5 p-2 h5 rounded mt-3 w-100" id="signup">登録</button>
 			</form>
 		</div><!--maincontentsエリアの終了-->
-		
-		
 	</div><!--wrapperエリアの終了-->
 
 <script type="text/javascript" src="../../js/jquery-2.0.2.min.js"></script><!--jQueryのリンク-->
 <script type="text/javascript" src="../../js/bgswitcher/jquery.bgswitcher.js"></script><!--bgswitcherのリンク-->
 <script type="text/javascript" src="../../js/bgswitcher/bgswitcher.js"></script><!--bgswitcherの相対リンク-->
-<script>
-	jQuery(function($) {
-	
-	
-});
-</script>
 
 </body>
 </html>

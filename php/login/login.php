@@ -1,6 +1,5 @@
 <?php
 
-//後は、エラー・メッセージ等をJavasciptで実装する
 session_start();
 
 require('../db/dbconnect.php');//DBファイルへの接続
@@ -52,41 +51,33 @@ if(!empty($_POST)) {//$_POSTの値が空でなければ
 <link rel="stylesheet" type="text/css" href="../../css/login/login.css"><!--cssの相対リンク-->
 <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
 </head>
-<style>
-  .error{
-    color:red;
-    position:absolute;
-    top:220px;
-    left:450px;
-  }
-</style>
 <body>
 
-<div id="wrapper"><!--wrapperエリアの開始-->
-    <div id="maincontents"><!--maincontentsエリアの開始-->
+  <div id="wrapper"><!--wrapperエリアの開始-->
+      <div id="maincontents"><!--maincontentsエリアの開始-->
 
-    <div id="service_title"><!--service_titleエリアの開始-->
-	        <h1>Phot<span>rip</span></h1>
-    </div><!--service_titleエリアの終了-->
+        <div id="service_title"><!--service_titleエリアの開始-->
+            <h1>Phot<span>rip</span></h1>
+        </div><!--service_titleエリアの終了-->
 
-    <?php if($error['login'] === 'failed' ): ?>
-      <p class="error">ログインに失敗しました。正しくご記入ください。</p>
-      <?php endif; ?>
+        <?php if($error['login'] === 'failed' ){ ?>
+        <p class="error">ログインに失敗しました。正しくご記入ください。</p>
+        <?php } ?>
 
-      <form action="" method="POST">
-	      <div class="form-group"><!--メールアドレスエリア-->
-		      <input type="mail" class="form-control" id="email" name="email" placeholder="メールアドレス" value="" required>
-	      </div>
-	      <div class="form-group"><!--パスワードエリア--->
-		      <input type="password" class="form-control mb-4" id="password" name="password" placeholder="パスワード" value="" required>
-	      </div>
-	      <button type="submit" class="btn-primary mb-5 p-2 h5 rounded mt-3 w-100" id="login">ログイン</button>
-      </form>
-    </div><!--maincontentsエリアの終了-->
+        <form action="" method="POST">
+          <div class="form-group"><!--メールアドレスエリア-->
+            <input type="mail" class="form-control" id="email" name="email" placeholder="メールアドレス" value="" required>
+          </div>
+          <div class="form-group"><!--パスワードエリア--->
+            <input type="password" class="form-control mb-4" id="password" name="password" placeholder="パスワード" value="" required>
+          </div>
+          <button type="submit" class="btn-primary mb-5 p-2 h5 rounded mt-3 w-100" id="login">ログイン</button>
+        </form>
+      </div><!--maincontentsエリアの終了-->
 
-    <div id="subcontents"><!--subcontentsエリアの開始-->
-	    <p>アカウントをお持ちですか？<a href="../signup/signup.php">新規登録</a>はこちら</p>
-    </div><!--subcontentsエリアの終了-->
+      <div id="subcontents"><!--subcontentsエリアの開始-->
+        <p>アカウントをお持ちですか？<a href="../signup/signup.php">新規登録</a>はこちら</p>
+      </div><!--subcontentsエリアの終了-->
 
   </div><!--wrapperエリアの終了-->
 
@@ -94,10 +85,5 @@ if(!empty($_POST)) {//$_POSTの値が空でなければ
 <script type="text/javascript" src="../../js/bgswitcher/jquery.bgswitcher.js"></script><!--bgswitcherのリンク-->
 <script type="text/javascript" src="../../js/bgswitcher/bgswitcher.js"></script><!--bgswitcherの相対リンク-->
 
-<script>
-	jQuery(function($) {
-  
-  });
-</script>
 </body>
 </html>

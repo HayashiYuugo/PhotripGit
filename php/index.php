@@ -1,9 +1,9 @@
 <?php
 session_start();//セッションの開始
 
-require('db/dbconnect.php');//DB接続ファイルを読み込み。
+//DB接続
+require('db/dbconnect.php');
 
-//ログイン処理(パーツ化したいがエラーが出る)
 //最後の行動から、1時間ログインが有効
 if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $_SESSION['time'] = time();//現在の時刻を上書き
@@ -37,7 +37,6 @@ $insertcom->execute(array(
   $com['info']['use_camera'],
   $com['info']['comment'],
 ));
-//ここでもう一度、homeを呼び第し重複投稿を防ぐ
 header('Location: index.php');
 exit();
 }
@@ -52,16 +51,15 @@ $camera = [
 	5 => 'ビデオカメラ'
 ];
 
-//コミュニティ投稿表示をする為の処理
-//コミュニティ作成内容をDBからSELECTで取得
+//コミュニティ投稿表示機能
 $community = $db->query('SELECT m.name,m.picture, c. * FROM members
 m, community c WHERE m.id=c.member_id ORDER BY created DESC');
 
 
-
-//検索結果ようにからの配列を用意する
+//検索結果用の配列
 $row = [];
 
+//検索機能
 if(!empty($_GET['serch'])) {
 	//検索機能のSQL 
 	$keyword = $_GET['serch'];
@@ -71,8 +69,6 @@ $stmt = $db->query($sql);
 $rowcount = $stmt->rowCount();
 $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
 
 
 ?>
@@ -102,9 +98,9 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	<div canvas="container"><!--containerエリアの開始-->
 		<div id="wrapper"><!--wrapperエリアの開始-->
 			<div id="header"><!--headerエリアの開始-->
-			<div id="header_title">
-				<h1><span>Phot</span>rip</h1>
-			</div>
+				<div id="header_title"><!--header_titleエリアの開始-->
+					<h1><span>Phot</span>rip</h1>
+				</div><!--header_titleエリアの終了-->
 				<div id="header_nav"><!--header_navエリアの開始-->
 					<dl>
 						<div class="Photo">
@@ -122,7 +118,8 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 						<div class="Menu">
 							<dt><i class="fas fa-bars menubtn"></i></dt>
 							<dd>メニュー</dd>
-						</div>
+						</div>	
+					</dl>
 				</div><!--header_navエリアの終了-->
 			</div><!--heaerエリアの終了-->
 
@@ -139,14 +136,14 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				</div><!--serch-inputエリアの終了-->
 			</form>
 
-<?php if(!empty($row)) {?>
+			<?php if(!empty($row)) {?>
 			<div id="serch_count"><!--serch-countエリアの開始-->
 				<p>検索結果<?php print(htmlspecialchars($rowcount,ENT_QUOTES));?>件..</p>
 			</div><!--serch-inputエリアの終了--->
-<?php }?>
+			<?php }?>
 
-			<div id="serch_result"><!--検索結果エリアの開始-->
-<?php foreach($row as $result){ 
+			<div id="serch_result"><!--serch_resultエリアの開始-->
+			<?php foreach($row as $result){ 
 					$str = $result['date'];
 					$dt = date('Y年m月d日', strtotime($str));?>
 				<div class="comdisplay"><!--comdisplayエリアの開始-->
@@ -166,15 +163,15 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 						<button type="button" class="btn btn-success"><a href="com_detail.php?id=<?php print(htmlspecialchars($result['id'], ENT_QUOTES)); ?>">詳細を見る</a></button>
 						<p><img src="registrationimage/member_picture/<?php print(htmlspecialchars($result['picture'], ENT_QUOTES)); ?>" width="60" height="60"></p>
 					</div><!--com_rihgtエリアの終了-->
-			</div><!--comdispalyエリアの終了-->
-<?php }?>
-			</div><!--検索結果エリアの終了-->
+				</div><!--comdispalyエリアの終了-->
+			<?php }?>
+			</div><!--serch_resultエリアの終了-->
 
 
 			<div id="maincontents"><!--maincontentsエリアの開始-->
-<?php foreach($community as $com){
-$str = $com['date'];
-$dt = date('Y年m月d日', strtotime($str));?>
+			<?php foreach($community as $com){
+			$str = $com['date'];
+			$dt = date('Y年m月d日', strtotime($str));?>
 
 				<div class="comdisplay"><!--comdisplayエリアの開始-->
 					<div id="com_left"><!--com_leftエリアの開始-->
@@ -195,37 +192,35 @@ $dt = date('Y年m月d日', strtotime($str));?>
 						<p><img src="registrationimage/member_picture/<?php print(htmlspecialchars($com['picture'], ENT_QUOTES)); ?>" width="60" height="60"></p>
 					</div><!--com_rightエリアの終了-->
 				</div><!--comdisplayエリアの終了-->
-<?php } ?>
+			<?php } ?>
 			</div><!--maincotnentsエリアの終了-->
 		</div><!--wrapperエリアの終了-->
 	</div><!--containerエリアの終了-->
 
-
-
-		<div off-canvas="sb-right right push"><!--sb-rightエリアの開始-->
-			<div id="slidecontents"><!--slidecontentsエリアの開始-->
-				<div id="slidecont_header"><!--sllidecont_headerエリアの開始-->
+	<div off-canvas="sb-right right push"><!--sb-rightエリアの開始-->
+		<div id="slidecontents"><!--slidecontentsエリアの開始-->
+			<div id="slidecont_header"><!--sllidecont_headerエリアの開始-->
+				<ul>
+						<li class="slidecont_head_icon"><i class="far fa-user-circle fa-lg"></i></li>
+						<li class="slidecont_head_icon"><i class="fas fa-camera fa-lg camera"></i></li>
+					<div id="slidecont_head_subtitle"><!--slidecont_head_subtitleエリアの開始-->
+						<li><a href="index.php">コミュニティ</a></li>
+						<li><a href="Photo.php">写真</a></li>
+					</div><!--slidecont_head_subtitleエリアの終了-->
+				</ul>
+			</div><!---slidecont_headerエリアの終了-->
+			<div id="slidecont_main"><!--slidecont_mainエリアの開始-->
 					<ul>
-							<li class="slidecont_head_icon"><i class="far fa-user-circle fa-lg"></i></li>
-							<li class="slidecont_head_icon"><i class="fas fa-camera fa-lg camera"></i></li>
-						<div id="slidecont_head_subtitle"><!--slidecont_head_subtitleエリアの開始-->
-							<li><a href="index.php">コミュニティ</a></li>
-							<li><a href="Photo.php">写真</a></li>
-						</div><!--slidecont_head_subtitleエリアの終了-->
+						<li class="slidecont_icon"><a href="index.php">トップ</a></li>
+						<li class="slidecont_icon"><a href="mypage.php">マイページ</a></li>
+						<li class="slidecont_icon"><a href="login/logout.php">ログアウト</a></li>
 					</ul>
-				</div><!---slidecont_headerエリアの終了-->
-				<div id="slidecont_main"><!--slidecont_mainエリアの開始-->
-						<ul>
-							<li class="slidecont_icon"><a href="index.php">トップ</a></li>
-							<li class="slidecont_icon"><a href="mypage.php">マイページ</a></li>
-							<li class="slidecont_icon"><a href="login/logout.php">ログアウト</a></li>
-						</ul>
-				</div><!--slidecont_mainエリアの終了-->
-			</div><!--slidecontentsエリアの終了-->
-		</div><!--sb-rightエリアの終了-->
+			</div><!--slidecont_mainエリアの終了-->
+		</div><!--slidecontentsエリアの終了-->
+	</div><!--sb-rightエリアの終了-->
 
 
-		<!--popup表示エリア-->
+	<!--popup表示エリア-->
 	<div id="image_post_screen"><!--com_post_screenエリアの開始-->
 
 		<h2>コミュニティ作成</h2>
@@ -234,31 +229,31 @@ $dt = date('Y年m月d日', strtotime($str));?>
 			<div id="com_post_left"><!--com_post_leftエリアの開始-->
 				<div class="form-group"><!--コミュニティ名-->
 					<label for="comtitle"><span class="beforeicon1">コミュニティ名</span></label>
-						<input type="name" class="form-control" name="comtitle" placeholder="コミュニティ名" required>
+					<input type="name" class="form-control" name="comtitle" placeholder="コミュニティ名" required>
 				</div>
 				<div class="form-group"><!--サムネイル画像-->
 					<label for="thumimg" class="file"><span class="beforeicon2">サムネイル画像</span></label><br>
-						<input type="file" class="form-control mb-2" id="thumimg" name="image" required>
-						<div class="imagepre"></div>
+					<input type="file" class="form-control mb-2" id="thumimg" name="image" required>
+					<div class="imagepre"></div>
 				</div>
 				<div class="form-group"><!--人数-->
 					<label for="comrest"><span class="beforeicon3">人数</span></label>
-						<input type="number" class="form-control" step="1" min="0" max="20" name="numrest" placeholder="人数を入力" required>
+					<input type="number" class="form-control" step="1" min="0" max="20" name="numrest" placeholder="人数を入力" required>
 				</div>
 			</div><!--com_post_leftエリアの終了-->
 
 			<div id="com_post_right"><!--com_post_rightエリアの開始-->
 				<div class="form-group"><!--日時-->
 					<label for="date"><span class="beforeicon4">日時</span></label>
-						<input type="date" class="form-control" name="date" placeholder="日時を入力" required>
+					<input type="date" class="form-control" name="date" placeholder="日時を入力" required>
 				</div>
 				<div class="form-group"><!--撮影地-->
 					<label for="location"><span class="beforeicon5">撮影地</span></label>
-						<input type="name" class="form-control" name="location" placeholder="主な撮影地を入力" required>
+					<input type="name" class="form-control" name="location" placeholder="主な撮影地を入力" required>
 				</div>
 				<div class="form-group"><!--主な被写体-->
 					<label for="subject"><span class="beforeicon6">主な被写体</span></label>
-						<input type="name" class="form-control" name="subject" placeholder="主な被写体を入力" required>
+					<input type="name" class="form-control" name="subject" placeholder="主な被写体を入力" required>
 				</div>
 				<div class="form-group"><!--主な使用カメラ-->
 					<label for="use_camera"><span class="beforeicon7">主な使用カメラ</span></label>
@@ -273,16 +268,14 @@ $dt = date('Y年m月d日', strtotime($str));?>
 				</div>
 				<div class="form-group"><!--作成者コメント-->
 					<label for="comment"><span class="beforeicon8">作成者コメント</span></label>
-						<textarea class="form-control" rows="3" name="comment" required></textarea>
+					<textarea class="form-control" rows="3" name="comment" required></textarea>
 				</div>
 				<button type="submit" class="btn-primary mb-5 p-2 h5 rounded mt-3">作成</button>
 			</div><!--com_post_rightエリアの終了-->
 		</form>
-
 	</div><!--com_post_screenエリアの終了-->
 
-		
-
+	
 <script type="text/javascript" src="../js/jquery-2.0.2.min.js"></script><!--jQueryのリンク-->
 <script type="text/javascript" src="../js/slidebar/slidebars.min.js"></script><!--slidebarのリンク-->
 <script type="text/javascript" src="../js/slidebar/slidebar.js"></script><!--slidebarの相対リンク-->
@@ -294,8 +287,5 @@ $dt = date('Y年m月d日', strtotime($str));?>
 <script type="text/javascript" src="../js/pointer.js"></script><!--pointer.jsの相対リンク-->
 <script type="text/javascript" src="../js/changeDateHeading/changeDateHeading.js"></script><!--changeDateHeading.jsの相対リンク-->
 
-<script>
-
-</script>
 </body>
 </html>
